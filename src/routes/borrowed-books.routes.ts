@@ -6,8 +6,9 @@ const router = Router();
  * http://localhost:3000/api/auth/register [POST]
  */
 
+router.get('/', (req, res) => {
+    console.log(req);
+    res.send(req)
+});
 
-router.post('/signup', signupController);
-router.post('/login', loginController);
-
-export { router }       
+export { router };

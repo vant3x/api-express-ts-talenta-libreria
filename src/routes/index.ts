@@ -2,18 +2,29 @@ import { Router } from "express";
 import { readdirSync } from "fs";
 
 const PATH_ROUTER = `${__dirname}`;
-const router = Router();
-
+const router = Router();  
 /**
- * index.ts 
- * @returns
+ * index.ts item
+ * @returns 
  */
 
 const cleanFileName = (fileName: string) => {
-    const file = fileName.split('.ts').shift();
-    return file;
-}
+  const file = fileName.split(".routes.ts")[0];
+  return file;
+};
+
+const logError = (err: any) => {
+  console.error(`Error al importar ruta: ${err}`);
+};
 
 readdirSync(PATH_ROUTER).filter((fileName) => {
-    const cleanName = cleanFileName(fileName);
-})
+  const cleanName = cleanFileName(fileName);
+  if (fileName.endsWith(".routes.ts")) {
+    import(`./${cleanName}.routes.ts`).then((moduleRouter) => {
+      console.log(cleanName)
+      router.use(`/api/${cleanName}`, moduleRouter.router);
+    }).catch(logError);
+  }
+});
+
+export { router };

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services: 
+  web:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/usr/app
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+  postgres: 
+    image: postgres
+    restart: always
+    ports: 
+      - "5432:5432"
+    environment:
+      - DATABASE_HOST=postgres
+      - POSTGRES_USER=talenta
+      - POSTGRES_PASSWORD=talenta2023
+      - POSTGRES_DB=talenta-library
+  pgadmin:
+    image: dpage/pgadmin4
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: "alejandrovelasquezmolina@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
