@@ -6,16 +6,17 @@ import {
   updateUserClientControllerById,
   deleteUserClientControllerById,
 } from "../controllers/users.controller";
+import { checkJwt } from "../middlewares/session";
 
 const router = Router();
 /**
  * http://localhost:3000/api/auth/register [POST]
  */
 
-router.post("/new-user", newUserClientController);
-router.get("/", getUserClientsController);
-router.get("/:id", getUserClientControllerById);
-router.put("/:id",  updateUserClientControllerById);
-router.delete("/:id",  deleteUserClientControllerById);
+router.post("/new-user", checkJwt, newUserClientController);
+router.get("/", checkJwt, getUserClientsController);
+router.get("/:id", checkJwt, getUserClientControllerById);
+router.put("/:id", checkJwt, updateUserClientControllerById);
+router.delete("/:id", checkJwt, deleteUserClientControllerById);
 
 export { router };

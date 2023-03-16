@@ -5,6 +5,7 @@ export interface  Book {
     bookPublisher: string;
     bookDate: Date;
     bookState: boolean;
+    genre?:string;
     ISBN: string;
     image?: string;
 }

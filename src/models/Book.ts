@@ -17,6 +17,10 @@ export const BookModel  = sequelize.define<Model<Book, Book>>('books', {
       type: DataTypes.STRING,
       allowNull: false
     },
+    genre: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     bookPublisher: {
       type: DataTypes.STRING 
     },

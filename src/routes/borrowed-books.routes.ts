@@ -1,14 +1,19 @@
 import { Router } from "express";
-import { signupController, loginController  } from "../controllers/auth.controller";
+import {
+  checkBookAvailabilityController,
+  createBorrowedBook,
+  getBorrowedBooks,
+  deleteBook,
+  updateAndReturnBorrowedBook
+} from "../controllers/borrowed-books.controller";
+import { checkJwt } from "../middlewares/session";
 
 const router = Router();
-/**
- * http://localhost:3000/api/auth/register [POST]
- */
 
-router.get('/', (req, res) => {
-    console.log(req);
-    res.send(req)
-});
+router.get("/check-book-availability/:id", checkBookAvailabilityController);
+router.post("/new-borrowed-book", checkJwt, createBorrowedBook);
+router.get("/", checkJwt, getBorrowedBooks);
+router.delete("/delete/:id", checkJwt, deleteBook);
+router.put("/return-borrowed-book/:id", checkJwt, updateAndReturnBorrowedBook);
 
 export { router };

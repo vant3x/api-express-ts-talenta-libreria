@@ -1,43 +1,25 @@
 import { DataTypes, InferCreationAttributes, Model } from "sequelize"; 
 import { sequelize } from "./../config/dbConfig"; 
-import { Book } from "./../interfaces/book.interface";
+import { BookCopies } from "./../interfaces/book-copies.interface";
+import { BookModel } from "./Book";
 
-
-export const BookModel  = sequelize.define<Model<Book, Book>>('books', {
+export const BookCopiesModel  = sequelize.define<Model<BookCopies, BookCopies>>('books_copies', {
     id: { 
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    title: { 
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    author: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    bookPublisher: {
-      type: DataTypes.STRING 
-    },
-    bookDate: {
-      type: DataTypes.DATEONLY,
+    idBook: { 
+      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: new Date().getFullYear().toString()
-    },
-    bookState: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
-    },
-    ISBN: {
-      type: DataTypes.STRING,
       unique: true
     },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: true
+    available: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
 }, {
   timestamps: true
 });
 
+BookCopiesModel.belongsTo(BookModel, { foreignKey: 'idBook', as: 'book' });

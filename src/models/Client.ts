@@ -15,7 +15,7 @@ export const ClientModel  = sequelize.define<Model<User, User>>('clients', {
     },
     lastname: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true 
     },
     email: {
       type: DataTypes.STRING,

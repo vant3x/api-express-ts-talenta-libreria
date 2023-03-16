@@ -21,7 +21,6 @@ readdirSync(PATH_ROUTER).filter((fileName) => {
   const cleanName = cleanFileName(fileName);
   if (fileName.endsWith(".routes.ts")) {
     import(`./${cleanName}.routes.ts`).then((moduleRouter) => {
-      console.log(cleanName)
       router.use(`/api/${cleanName}`, moduleRouter.router);
     }).catch(logError);
   }
