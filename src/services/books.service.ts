@@ -56,6 +56,17 @@ const updateBookById = async (id: string, data: Book) => {
 };
 
 const deleteBookById = async (id: string) => {
+  const bookCopies = await BookCopiesModel.findAll({
+    where: {
+      idBook: id,
+    },
+  });
+
+  await Promise.all(
+    bookCopies.map(async (copy) => {
+      await copy.destroy();
+    })
+  );
   const responseBook = await BookModel.destroy({
     where: {
       id,
