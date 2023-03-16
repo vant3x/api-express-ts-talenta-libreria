@@ -13,6 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 // habilitar carpeta publica
 app.use(express.static("uploads"));
 app.use(router);
-app.use(helmet);
+app.use(helmet());
 
 export default app;
